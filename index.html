@@ -130,7 +130,6 @@
       <div class="section-header reveal-init">
         <span class="section-badge"><i class="fa-solid fa-user-astronaut"></i> Digital Identity</span>
         <h2 class="section-title">Bridging Technical Rigor & Business Strategy</h2>
-        <p class="section-subtitle">Computer Science Graduate | Master’s Student in Data Science for Business & Economics</p>
       </div>
 
       <!-- 4 Core Pillars Grid -->
@@ -208,6 +207,15 @@
         <div class="legend-item"><span class="legend-dot" style="background: #8b5cf6;"></span> Databases & SSIS ETL</div>
         <div class="legend-item"><span class="legend-dot" style="background: #14b8a6;"></span> APIs & Agile</div>
       </div>
+        <!-- Interactive 2D Constellation Canvas Wrapper -->
+      <div class="constellation-wrapper reveal-init" id="constellation-wrapper">
+        <div class="constellation-controls">
+          <button class="constellation-control-btn active" data-mode="constellation"><i class="fa-solid fa-circle-nodes"></i> Constellation</button>
+          <button class="constellation-control-btn" data-mode="grid"><i class="fa-solid fa-border-all"></i> Grid View</button>
+        </div>
+        <canvas id="constellation-canvas"></canvas>
+        <div class="constellation-tooltip" id="constellation-tooltip"></div>
+      </div>
   </section>
 
   <!-- ==========================================================================
@@ -217,8 +225,7 @@
     <div class="container">
       <div class="section-header reveal-init">
         <span class="section-badge"><i class="fa-solid fa-diagram-project"></i> Showcase</span>
-        <h2 class="section-title">Featured Projects</h2>
-        <p class="section-subtitle">Explore interactive project cards featuring animated canvas visualizers, 3D tilt interaction, and live model simulators.</p>
+        <h2 class="section-title">Projects</h2>
       </div>
 
       <!-- Filter Buttons -->
