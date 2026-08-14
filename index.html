@@ -1,505 +1,451 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Azza Touati — Data Science</title>
-<meta name="description" content="Azza Touati — Computer Science graduate, Masters in Data Science for Business and Economics. Machine learning, forecasting, and analytics.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:            #0a0f1c;
-    --bg-soft:       #0e1526;
-    --surface:       #121b30;
-    --surface-line:  #1e2a45;
-    --text:          #e9edf6;
-    --text-dim:      #8a94ab;
-    --text-faint:    #5a6480;
-    --signal:        #4fd6c8;   /* observed series */
-    --signal-dim:    #2b6a63;
-    --forecast:      #f2a65a;   /* forecast / highlight */
-    --forecast-dim:  #7a5730;
-    --radius: 10px;
-    --maxw: 980px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azza Touati | Data Science • AI • Business Analytics</title>
+  
+  <!-- Meta Descriptions & SEO -->
+  <meta name="description" content="Personal portfolio of Azza Touati — Computer Science graduate and Master's student in Data Science for Business and Economics specializing in AI, Machine Learning, Data Analytics, and Data Engineering.">
+  <meta name="keywords" content="Azza Touati, Data Scientist, Machine Learning, AI, Business Analytics, Computer Science, Data Engineering, Tunisia, Portfolio">
+  <meta name="author" content="Azza Touati">
 
-  *{ margin:0; padding:0; box-sizing:border-box; }
+  <!-- OpenGraph / Social Media Meta -->
+  <meta property="og:title" content="Azza Touati | Data Science • AI • Business Analytics">
+  <meta property="og:description" content="Building intelligent solutions where data, AI and business meet. Explore projects in Deep Learning, ETL Data Warehousing, Time-Series Forecasting, and Job Market Analytics.">
+  <meta property="og:type" content="website">
 
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
-  }
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter', sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  ::selection{ background:var(--signal); color:#08110f; }
-
-  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
-
-  .mono{ font-family:'IBM Plex Mono', monospace; }
-
-  a{ color:inherit; text-decoration:none; }
-
-  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 32px; }
-
-  /* ---------- background grid + axis ticks ---------- */
-  .bg-grid{
-    position:fixed; inset:0; z-index:-1;
-    background-image:
-      linear-gradient(rgba(79,214,200,0.045) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(79,214,200,0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
-  }
-
-  /* ---------- nav ---------- */
-  header.nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(10,15,28,0.82);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--surface-line);
-  }
-  .nav-inner{
-    max-width:var(--maxw); margin:0 auto; padding:16px 32px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .brand{
-    font-family:'Space Grotesk'; font-weight:700; font-size:1.05rem;
-    display:flex; align-items:center; gap:8px;
-  }
-  .brand-dot{ width:8px; height:8px; border-radius:50%; background:var(--signal); box-shadow:0 0 8px var(--signal); }
-  .nav-links{ display:flex; gap:28px; font-size:0.88rem; color:var(--text-dim); }
-  .nav-links a{ transition:color .2s; position:relative; }
-  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--text); }
-  .nav-links a:focus-visible{ outline:2px solid var(--signal); outline-offset:4px; border-radius:2px; }
-  @media (max-width:720px){ .nav-links{ display:none; } }
-
-  /* ---------- hero ---------- */
-  .hero{
-    padding:96px 0 64px;
-    position:relative;
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono'; font-size:0.78rem; letter-spacing:0.08em;
-    color:var(--signal); text-transform:uppercase;
-    display:flex; align-items:center; gap:10px; margin-bottom:22px;
-  }
-  .eyebrow::before{
-    content:''; width:28px; height:1px; background:var(--signal);
-  }
-  h1.name{
-    font-size:clamp(2.6rem, 7vw, 4.6rem);
-    font-weight:700; line-height:1.02; margin-bottom:18px;
-  }
-  .role{
-    font-size:clamp(1.05rem, 2.4vw, 1.3rem);
-    color:var(--text-dim); max-width:640px; margin-bottom:28px;
-    font-weight:400;
-  }
-  .role strong{ color:var(--text); font-weight:500; }
-
-  .contact-row{
-    display:flex; flex-wrap:wrap; gap:14px 22px; margin-bottom:56px;
-    font-family:'IBM Plex Mono'; font-size:0.82rem; color:var(--text-dim);
-  }
-  .contact-row a{ display:flex; align-items:center; gap:7px; transition:color .2s; }
-  .contact-row a:hover, .contact-row a:focus-visible{ color:var(--signal); }
-  .contact-row svg{ width:14px; height:14px; opacity:0.8; }
-
-  /* signature hero chart */
-  .chart-card{
-    background:var(--surface);
-    border:1px solid var(--surface-line);
-    border-radius:var(--radius);
-    padding:24px 24px 18px;
-    overflow:hidden;
-  }
-  .chart-head{
-    display:flex; justify-content:space-between; align-items:baseline;
-    margin-bottom:6px; font-family:'IBM Plex Mono'; font-size:0.74rem; color:var(--text-faint);
-    flex-wrap:wrap; gap:6px;
-  }
-  .chart-head .k{ color:var(--text-dim); }
-  .legend{ display:flex; gap:16px; }
-  .legend span{ display:flex; align-items:center; gap:6px; }
-  .legend .sw{ width:12px; height:2px; display:inline-block; }
-  .sw.obs{ background:var(--signal); }
-  .sw.fc{ background:var(--forecast); background-image:linear-gradient(90deg, var(--forecast) 60%, transparent 60%); background-size:8px 2px; }
-
-  .hero-svg{ display:block; width:100%; height:auto; }
-  .obs-path{ fill:none; stroke:var(--signal); stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round; }
-  .fc-path{ fill:none; stroke:var(--forecast); stroke-width:2.4; stroke-dasharray:6 6; stroke-linecap:round; }
-  .band{ fill:var(--forecast); opacity:0.09; }
-  .gridline{ stroke:var(--surface-line); stroke-width:1; }
-  .node{ fill:var(--bg-soft); stroke:var(--signal); stroke-width:2; }
-  .node.fc{ stroke:var(--forecast); }
-
-  .draw{
-    stroke-dasharray: 900;
-    stroke-dashoffset: 900;
-    animation: draw 2.1s cubic-bezier(.3,.8,.3,1) forwards;
-  }
-  .draw-fc{
-    animation: draw-fc 1.4s ease forwards 1.9s;
-    opacity:0;
-  }
-  @keyframes draw{ to{ stroke-dashoffset:0; } }
-  @keyframes draw-fc{ 0%{opacity:0;} 100%{ opacity:1; } }
-
-  /* ---------- sections ---------- */
-  section{ padding:64px 0; border-top:1px solid var(--surface-line); }
-  section:first-of-type{ border-top:none; }
-
-  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:34px; }
-  .sec-head .idx{ font-family:'IBM Plex Mono'; font-size:0.78rem; color:var(--text-faint); }
-  .sec-head h2{ font-size:1.5rem; font-weight:600; }
-
-  .lede{ color:var(--text-dim); max-width:680px; font-size:1.02rem; }
-
-  /* timeline (experience + education) */
-  .timeline{ position:relative; padding-left:28px; }
-  .timeline::before{
-    content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
-    background:linear-gradient(var(--signal-dim), var(--surface-line));
-  }
-  .t-item{ position:relative; padding-bottom:40px; }
-  .t-item:last-child{ padding-bottom:0; }
-  .t-item::before{
-    content:''; position:absolute; left:-28px; top:4px;
-    width:11px; height:11px; border-radius:50%;
-    background:var(--bg); border:2px solid var(--signal);
-  }
-  .t-date{ font-family:'IBM Plex Mono'; font-size:0.76rem; color:var(--signal); margin-bottom:6px; letter-spacing:0.03em; }
-  .t-title{ font-size:1.08rem; font-weight:600; margin-bottom:2px; }
-  .t-org{ color:var(--text-dim); font-size:0.92rem; margin-bottom:12px; }
-  .t-item ul{ list-style:none; }
-  .t-item li{ position:relative; padding-left:18px; color:var(--text-dim); font-size:0.94rem; margin-bottom:8px; }
-  .t-item li::before{ content:'—'; position:absolute; left:0; color:var(--text-faint); }
-
-  /* projects */
-  .project-card{
-    background:var(--surface); border:1px solid var(--surface-line);
-    border-radius:var(--radius); padding:30px; position:relative;
-    transition:border-color .25s, transform .25s;
-  }
-  .project-card:hover{ border-color:var(--signal-dim); transform:translateY(-2px); }
-  .p-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; margin-bottom:14px; flex-wrap:wrap; }
-  .p-title{ font-size:1.25rem; font-weight:600; }
-  .p-link{
-    display:inline-flex; align-items:center; gap:7px;
-    font-family:'IBM Plex Mono'; font-size:0.78rem; color:var(--signal);
-    border:1px solid var(--signal-dim); padding:7px 12px; border-radius:6px;
-    transition:background .2s, color .2s;
-    white-space:nowrap;
-  }
-  .p-link:hover, .p-link:focus-visible{ background:var(--signal); color:#08110f; }
-  .p-desc{ color:var(--text-dim); font-size:0.95rem; max-width:640px; margin-bottom:18px; }
-  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    font-family:'IBM Plex Mono'; font-size:0.72rem; color:var(--text-dim);
-    background:var(--bg-soft); border:1px solid var(--surface-line);
-    padding:5px 10px; border-radius:5px;
-  }
-
-  /* skills */
-  .skill-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:22px; }
-  .skill-group{ border-left:1px solid var(--surface-line); padding-left:18px; }
-  .skill-group h3{
-    font-family:'IBM Plex Mono'; font-size:0.76rem; text-transform:uppercase;
-    letter-spacing:0.06em; color:var(--text-faint); font-weight:500; margin-bottom:12px;
-  }
-  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .chip{
-    font-size:0.85rem; color:var(--text); background:var(--surface);
-    border:1px solid var(--surface-line); padding:6px 12px; border-radius:20px;
-  }
-
-  /* certifications */
-  .cert-list{ display:flex; flex-direction:column; gap:1px; background:var(--surface-line); border-radius:var(--radius); overflow:hidden; }
-  .cert-item{
-    background:var(--bg-soft); padding:18px 22px; display:flex; align-items:center; gap:16px;
-  }
-  .cert-mark{ width:8px; height:8px; border-radius:50%; background:var(--forecast); flex-shrink:0; }
-  .cert-name{ font-size:0.96rem; }
-
-  /* languages + community */
-  .duo{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  @media (max-width:720px){ .duo{ grid-template-columns:1fr; } }
-  .lang-item{ display:flex; justify-content:space-between; border-bottom:1px solid var(--surface-line); padding:12px 0; font-size:0.94rem; }
-  .lang-item span:last-child{ font-family:'IBM Plex Mono'; font-size:0.78rem; color:var(--text-dim); }
-  .community-card{ color:var(--text-dim); font-size:0.94rem; }
-  .community-card .t-title{ color:var(--text); }
-
-  /* footer */
-  footer{ padding:56px 0 40px; border-top:1px solid var(--surface-line); }
-  .footer-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
-  .foot-links{ display:flex; gap:20px; font-family:'IBM Plex Mono'; font-size:0.8rem; color:var(--text-dim); }
-  .foot-links a:hover, .foot-links a:focus-visible{ color:var(--signal); }
-  .foot-note{ font-size:0.78rem; color:var(--text-faint); font-family:'IBM Plex Mono'; }
-
-  /* reveal on scroll */
-  .reveal{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.in{ opacity:1; transform:translateY(0); }
-
-  a:focus-visible, button:focus-visible{ outline:2px solid var(--signal); outline-offset:3px; }
-</style>
+  <!-- Design System CSS -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
 </head>
 <body>
 
-<div class="bg-grid"></div>
+  <!-- Ambient Cursor Follower Glow -->
+  <div id="cursor-glow" class="cursor-glow"></div>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="brand"><span class="brand-dot"></span>Azza Touati</div>
-    <nav class="nav-links">
-      <a href="#profile">Profile</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
+  <!-- Notification Toast -->
+  <div id="toast" class="toast-notification"></div>
 
-<main class="wrap">
+  <!-- ==========================================================================
+       1. NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="nav-logo" aria-label="Azza Touati Portfolio Home">
+        <span class="nav-logo-mark">AT</span>
+        <div class="nav-logo-text">
+          <span class="nav-logo-title">Azza Touati</span>
+          <span class="nav-logo-sub">DATA & AI PORTFOLIO</span>
+        </div>
+      </a>
 
-  <!-- HERO -->
-  <section class="hero" style="border-top:none;">
-    <div class="eyebrow">Data Science &amp; Analytics</div>
-    <h1 class="name">Azza Touati</h1>
-    <p class="role">Computer Science graduate pursuing a <strong>Masters in Data Science for Business and Economics</strong>. I turn structured data into forecasts, models, and decisions.</p>
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
 
-    <div class="contact-row">
-      <a href="mailto:touatiazza4@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18v14H3z"/><path d="M3 6l9 7 9-7"/></svg>
-        touatiazza4@gmail.com
-      </a>
-      <a href="tel:+21693648358">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .6 3a2 2 0 0 1-.5 2L8 10a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2-.5c1 .3 2 .5 3 .6a2 2 0 0 1 1.7 2z"/></svg>
-        +216 93-648-358
-      </a>
-      <a href="https://www.linkedin.com/in/azza-touati" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12"/><path d="M10 13a4 4 0 0 1 8 0v8"/></svg>
-        linkedin.com/in/azza-touati
-      </a>
-      <a href="https://github.com/azza-touati" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
-        github.com/azza-touati
-      </a>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-primary btn-sm">
+          <i class="fa-regular fa-paper-plane"></i> Get In Touch
+        </a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <div class="chart-card">
-      <div class="chart-head">
-        <div><span class="k">series</span> GDP_growth_forecast.ts</div>
-        <div class="legend">
-          <span><i class="sw obs"></i>observed</span>
-          <span><i class="sw fc"></i>forecast</span>
+  <!-- ==========================================================================
+       2. HERO SECTION
+       ========================================================================== -->
+  <section class="hero" id="home">
+    <canvas id="hero-canvas"></canvas>
+    
+    <div class="container hero-content">
+      <div class="hero-badge-wrap reveal-init">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          <span class="hero-badge-text">DATA SCIENCE • AI • BUSINESS ANALYTICS</span>
         </div>
       </div>
-      <svg class="hero-svg" viewBox="0 0 720 220" preserveAspectRatio="none" role="img" aria-label="Illustrative time series chart transitioning from observed data to a forecast with a confidence band">
-        <line class="gridline" x1="0" y1="40" x2="720" y2="40"/>
-        <line class="gridline" x1="0" y1="90" x2="720" y2="90"/>
-        <line class="gridline" x1="0" y1="140" x2="720" y2="140"/>
-        <line class="gridline" x1="0" y1="190" x2="720" y2="190"/>
 
-        <!-- confidence band over forecast region -->
-        <polygon class="band" points="460,150 500,120 540,135 580,95 620,110 660,70 700,90 700,175 660,150 620,165 580,125 540,150 500,155" />
+      <h1 class="hero-name reveal-init reveal-delay-1">
+        AZZA TOUATI
+      </h1>
 
-        <!-- observed path -->
-        <path class="obs-path draw" d="M10,170 L60,150 L110,160 L160,120 L210,135 L260,100 L310,115 L360,80 L410,95 L460,150" />
-        <!-- forecast path -->
-        <path class="fc-path draw-fc" d="M460,150 L500,120 L540,135 L580,95 L620,110 L660,70 L700,90" />
-
-        <circle class="node" cx="10" cy="170" r="3.5"/>
-        <circle class="node" cx="160" cy="120" r="3.5"/>
-        <circle class="node" cx="310" cy="115" r="3.5"/>
-        <circle class="node" cx="460" cy="150" r="4.5"/>
-        <circle class="node fc" cx="580" cy="95" r="3.5"/>
-        <circle class="node fc" cx="700" cy="90" r="4.5"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- PROFILE -->
-  <section id="profile">
-    <div class="sec-head reveal"><span class="idx mono">§ 01</span><h2>Profile</h2></div>
-    <p class="lede reveal">
-      Computer Science graduate currently pursuing a Masters in Data Science for Business and Economics.
-      My background combines technical depth with an understanding of business challenges, and a strong interest
-      in data analysis and artificial intelligence — I'm motivated by turning data into strategic tools that
-      deliver meaningful insight, support decision-making, and lead to more efficient solutions.
-    </p>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience">
-    <div class="sec-head reveal"><span class="idx mono">§ 02</span><h2>Professional Experience</h2></div>
-    <div class="timeline">
-      <div class="t-item reveal">
-        <div class="t-date mono">FEB 2025 — MAY 2025</div>
-        <div class="t-title">Research Intern — Predictive Analytics for Healthcare Decision Support</div>
-        <div class="t-org">Higher Institute of Computer Science and Multimedia of Sfax · Parkinson's Disease</div>
-        <ul>
-          <li>Developed and evaluated multiple machine learning and deep learning models for predictive classification using structured clinical datasets.</li>
-          <li>Applied data preprocessing, feature engineering, and model optimization techniques to improve predictive performance and reliability.</li>
-          <li>Designed an interactive web-based dashboard to visualize predictions and support data-driven interpretation of results.</li>
-        </ul>
+      <div class="hero-subtitle reveal-init reveal-delay-2">
+        BRIDGING DATA, AI & BUSINESS STRATEGY
       </div>
-      <div class="t-item reveal">
-        <div class="t-date mono">JUN 2024 — JUL 2024</div>
-        <div class="t-title">Information Systems Intern — ERP Data Management &amp; SQL Support</div>
-        <div class="t-org">SAIPH</div>
-        <ul>
-          <li>Managed and updated business data within Sage ERP databases.</li>
-          <li>Executed SQL queries and database operations to support reporting and data analysis.</li>
-          <li>Assisted in the integration and maintenance of information systems.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <div class="sec-head reveal"><span class="idx mono">§ 03</span><h2>Projects</h2></div>
-    <div class="project-card reveal">
-      <div class="p-top">
-        <div class="p-title">MacroCast</div>
-        <a class="p-link" href="https://github.com/azza-touati" target="_blank" rel="noopener">
-          View on GitHub
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      <p class="hero-description reveal-init reveal-delay-3">
+        Computer Science graduate and Master's student in Data Science for Business and Economics, building intelligent solutions where data, AI and business meet.
+      </p>
+
+      <div class="hero-actions reveal-init reveal-delay-4">
+        <a href="#projects" class="btn btn-primary">
+          <i class="fa-solid fa-rocket"></i> Explore My Work
+        </a>
+        <a href="#contact" class="btn btn-secondary" id="download-cv-btn">
+          <i class="fa-solid fa-file-arrow-down"></i> Download CV / Contact
         </a>
       </div>
-      <p class="p-desc">Inflation and GDP modeling and forecasting using time series analysis — building and validating models that project macroeconomic indicators forward from historical data.</p>
-      <div class="tag-row">
-        <span class="tag">Time Series</span>
-        <span class="tag">Forecasting</span>
-        <span class="tag">Python</span>
-        <span class="tag">R</span>
-        <span class="tag">Macroeconomics</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="sec-head reveal"><span class="idx mono">§ 04</span><h2>Skills</h2></div>
-    <div class="skill-grid">
-      <div class="skill-group reveal">
-        <h3>Technologies &amp; Frameworks</h3>
-        <div class="chip-row">
-          <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span>
-          <span class="chip">Python</span><span class="chip">Flask</span><span class="chip">R</span>
+      <!-- Quick KPI Stats Bar -->
+      <div class="hero-stats-grid reveal-init reveal-delay-4">
+        <div class="hero-stat-card">
+          <div class="hero-stat-value">M.Sc. Student</div>
+          <div class="hero-stat-label">Data Science & Business</div>
         </div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>Data Visualization &amp; BI</h3>
-        <div class="chip-row">
-          <span class="chip">Power BI</span><span class="chip">Excel</span><span class="chip">Tableau</span>
+        <div class="hero-stat-card">
+          <div class="hero-stat-value">CS Degree</div>
+          <div class="hero-stat-label">Computer Science Foundation</div>
         </div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>Databases</h3>
-        <div class="chip-row"><span class="chip">SQL</span></div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>APIs</h3>
-        <div class="chip-row"><span class="chip">REST APIs</span></div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>ETL &amp; Data Tools</h3>
-        <div class="chip-row">
-          <span class="chip">SSMS</span><span class="chip">SSIS</span>
+        <div class="hero-stat-card">
+          <div class="hero-stat-value">4+ Core</div>
+          <div class="hero-stat-label">End-to-End AI & ETL Projects</div>
         </div>
-      </div>
-      <div class="skill-group reveal">
-        <h3>Methodologies</h3>
-        <div class="chip-row">
-          <span class="chip">Agile</span><span class="chip">Scrum</span>
+        <div class="hero-stat-card">
+          <div class="hero-stat-value">Tunisia</div>
+          <div class="hero-stat-label">Available for Roles</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section id="education">
-    <div class="sec-head reveal"><span class="idx mono">§ 05</span><h2>Academic Background</h2></div>
-    <div class="timeline">
-      <div class="t-item reveal">
-        <div class="t-date mono">2025 — 2027</div>
-        <div class="t-title">Professional Masters, Data Science for Business and Economics</div>
-        <div class="t-org">Higher Institute of Commercial Studies of Sfax (IHEC)</div>
+  <!-- ==========================================================================
+       3. ABOUT ME SECTION
+       ========================================================================== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-solid fa-user-astronaut"></i> Background</span>
+        <h2 class="section-title">Bridging Computer Science & Economic Intelligence</h2>
+        <p class="section-subtitle">Transitioning strong computational software foundations into strategic data science and predictive analytics.</p>
       </div>
-      <div class="t-item reveal">
-        <div class="t-date mono">2022 — 2025</div>
-        <div class="t-title">Bachelor in Computer Science, Computer Science and Multimedia</div>
-        <div class="t-org">Higher Institute of Computer Science and Multimedia of Sfax (ISIMS)</div>
+
+      <div class="about-grid">
+        <div class="about-bio reveal-init">
+          <p class="about-paragraph">
+            My journey began with a <span class="about-highlight">Licence in Computer Science & Multimedia</span>, where I built a deep foundation in software engineering, database architectures, algorithms, and web development.
+          </p>
+          <p class="about-paragraph">
+            Driven by a desire to transform raw data into actionable decision-making tools, I advanced my education into a <span class="about-highlight">Master's in Data Science for Business and Economics</span>. This dual background enables me to approach data problems holistically — combining clean backend engineering with advanced Machine Learning algorithms and business acumen.
+          </p>
+          <p class="about-paragraph">
+            Whether training deep convolutional neural networks for diagnostic healthcare applications or constructing automated ETL pipelines and macroeconomic forecast models, my goal is to engineer scalable, data-driven solutions that create real economic value.
+          </p>
+        </div>
+
+        <div class="about-pillars reveal-init reveal-delay-2">
+          <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-code"></i></div>
+            <h3 class="pillar-title">CS Foundation</h3>
+            <p class="pillar-desc">Strong background in algorithms, software structure, database design and web APIs.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-brain"></i></div>
+            <h3 class="pillar-title">AI & Machine Learning</h3>
+            <p class="pillar-desc">Deep Learning, TensorFlow, classification, regression, and image pattern recognition.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-database"></i></div>
+            <h3 class="pillar-title">Data & ETL Pipelines</h3>
+            <p class="pillar-desc">Data warehousing, SQL Server, SSIS pipelines, data cleaning and transformation.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon"><i class="fa-solid fa-chart-pie"></i></div>
+            <h3 class="pillar-title">Business & Economics</h3>
+            <p class="pillar-desc">Time-series forecasting, econometric models, Power BI storytelling, and market analysis.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- CERTIFICATIONS -->
-  <section id="certifications">
-    <div class="sec-head reveal"><span class="idx mono">§ 06</span><h2>Certifications</h2></div>
-    <div class="cert-list reveal">
-      <div class="cert-item"><span class="cert-mark"></span><span class="cert-name">Oracle Cloud Infrastructure 2025 Certified AI Foundations Associate</span></div>
-      <div class="cert-item"><span class="cert-mark"></span><span class="cert-name">Google Data Analytics</span></div>
-      <div class="cert-item"><span class="cert-mark"></span><span class="cert-name">Power BI — 365 Data Science</span></div>
+  <!-- ==========================================================================
+       4. INTERACTIVE SKILLS MATRIX SECTION
+       ========================================================================== -->
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-solid fa-layer-group"></i> Technical Stack</span>
+        <h2 class="section-title">Interactive Skills Matrix</h2>
+        <p class="section-subtitle">Explore my technical competencies categorized by domain with practical application context.</p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="skills-filter-container reveal-init">
+        <button class="filter-btn skills-filter-btn active" data-filter="all">All Skills</button>
+        <button class="filter-btn skills-filter-btn" data-filter="programming">Programming</button>
+        <button class="filter-btn skills-filter-btn" data-filter="data">Data & Databases</button>
+        <button class="filter-btn skills-filter-btn" data-filter="bi">Data Viz & BI</button>
+        <button class="filter-btn skills-filter-btn" data-filter="ai">AI & Machine Learning</button>
+        <button class="filter-btn skills-filter-btn" data-filter="backend">Backend & APIs</button>
+        <button class="filter-btn skills-filter-btn" data-filter="tools">Tools & Methods</button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="skills-search-wrap reveal-init">
+        <i class="fa-solid fa-magnifying-glass skills-search-icon"></i>
+        <input type="text" id="skills-search" class="skills-search-input" placeholder="Search skills (e.g. Python, SQL, TensorFlow)...">
+      </div>
+
+      <!-- Dynamic Skills Grid -->
+      <div id="skills-grid" class="skills-grid"></div>
     </div>
   </section>
 
-  <!-- LANGUAGES + COMMUNITY -->
-  <section id="languages">
-    <div class="sec-head reveal"><span class="idx mono">§ 07</span><h2>Languages &amp; Community</h2></div>
-    <div class="duo">
-      <div class="reveal">
-        <div class="lang-item"><span>English</span><span>EFset C1</span></div>
-        <div class="lang-item"><span>French</span><span>TCF-TP B2</span></div>
-        <div class="lang-item"><span>Arabic</span><span>Native</span></div>
+  <!-- ==========================================================================
+       5. CENTERPIECE PROJECTS SECTION
+       ========================================================================== -->
+  <section class="projects-section" id="projects">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-solid fa-diagram-project"></i> Portfolio Showcase</span>
+        <h2 class="section-title">Featured Data Science & AI Projects</h2>
+        <p class="section-subtitle">Click on any project card to open the interactive detail inspector and live output simulator.</p>
       </div>
-      <div class="community-card reveal">
-        <div class="t-title">Member — SOS Children's Villages Ambassadors Club</div>
-        <p style="margin-top:8px;">Participated in volunteering activities, awareness campaigns, and social support initiatives for children.</p>
+
+      <!-- Category Filter Bar -->
+      <div class="projects-filter-bar reveal-init">
+        <button class="filter-btn projects-filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn projects-filter-btn" data-filter="ai">AI / ML</button>
+        <button class="filter-btn projects-filter-btn" data-filter="science">Data Science</button>
+        <button class="filter-btn projects-filter-btn" data-filter="engineering">Data Engineering</button>
+        <button class="filter-btn projects-filter-btn" data-filter="analytics">Business Analytics</button>
       </div>
+
+      <!-- Projects Cards Grid -->
+      <div id="projects-grid" class="projects-grid"></div>
     </div>
   </section>
 
-</main>
-
-<footer id="contact">
-  <div class="wrap footer-inner">
-    <div class="foot-note">Built &amp; deployed with GitHub Pages</div>
-    <div class="foot-links">
-      <a href="mailto:touatiazza4@gmail.com">Email</a>
-      <a href="https://www.linkedin.com/in/azza-touati" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/azza-touati" target="_blank" rel="noopener">GitHub</a>
+  <!-- Project Detail Modal Overlay -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-window">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Close project modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div id="modal-content"></div>
     </div>
   </div>
-</footer>
 
-<script>
-  const revealEls = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('in'));
-  }
-</script>
+  <!-- ==========================================================================
+       6. EXPERIENCE TIMELINE SECTION
+       ========================================================================== -->
+  <section class="timeline-section" id="experience">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-solid fa-briefcase"></i> Experience</span>
+        <h2 class="section-title">Professional Experience</h2>
+        <p class="section-subtitle">Hands-on technical internships and practical industry contributions.</p>
+      </div>
 
+      <div class="timeline-container">
+        <!-- Item 1 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Feb 2025 – May 2025</div>
+            <h3 class="timeline-role">Research Internship — Deep Learning AI</h3>
+            <div class="timeline-company">Higher Institute of Computer Science and Multimedia of Sfax</div>
+            <p class="timeline-desc">
+              Researched and built deep learning models for Parkinson's disease recognition using hand-drawing motor data. Designed image preprocessing, feature augmentation algorithms, and integrated model inference into an interactive web application.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Aug 2024 – Sept 2024</div>
+            <h3 class="timeline-role">Summer Data Analyst Work</h3>
+            <div class="timeline-company">SAIPH</div>
+            <p class="timeline-desc">
+              Conducted enterprise data collection, preparation, missing value treatment, and cleaning. Created structured visual dashboards using Power BI to support operational decision making.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> June 2024 – July 2024</div>
+            <h3 class="timeline-role">Web Engineering Internship</h3>
+            <div class="timeline-company">SAIPH</div>
+            <p class="timeline-desc">
+              Developed a full-stack training management website utilizing HTML5, CSS3, JavaScript, and a Flask Python backend for internal process automation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Information Systems Internship</div>
+            <h3 class="timeline-role">Information Systems & Database Internship</h3>
+            <div class="timeline-company">Enterprise Information Systems</div>
+            <p class="timeline-desc">
+              Worked directly with Sage ERP relational databases, executing SQL queries, optimizing report extraction, and analyzing database tables.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       7. EDUCATION TIMELINE SECTION
+       ========================================================================== -->
+  <section class="timeline-section" id="education" style="background: rgba(11, 13, 20, 0.4);">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-solid fa-graduation-cap"></i> Academic Journey</span>
+        <h2 class="section-title">Education & Degrees</h2>
+        <p class="section-subtitle">Academic foundations in Computer Science and Data Science for Economics.</p>
+      </div>
+
+      <div class="timeline-container">
+        <!-- Degree 1 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot" style="border-color: var(--accent-purple); box-shadow: 0 0 12px var(--accent-purple);"></div>
+          <div class="timeline-content">
+            <div class="timeline-date" style="color: var(--accent-purple);"><i class="fa-regular fa-calendar"></i> 2025 – Present</div>
+            <h3 class="timeline-role">Master's in Data Science for Business and Economics</h3>
+            <div class="timeline-company">Higher Institute of Computer Science and Multimedia of Sfax</div>
+            <p class="timeline-desc">
+              Advanced specialization in Machine Learning, Statistical Analysis, Econometrics, Predictive Modeling, Data Warehousing, and Data-Driven Decision Making.
+            </p>
+          </div>
+        </div>
+
+        <!-- Degree 2 -->
+        <div class="timeline-item reveal-init">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> 2022 – 2025</div>
+            <h3 class="timeline-role">Licence in Computer Science & Multimedia</h3>
+            <div class="timeline-company">Higher Institute of Computer Science and Multimedia of Sfax</div>
+            <p class="timeline-desc">
+              Comprehensive baseline in software development, data structures, database management systems, web applications, and multimedia systems.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       8. CONTACT SECTION & CTA
+       ========================================================================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header reveal-init">
+        <span class="section-badge"><i class="fa-regular fa-comments"></i> Get In Touch</span>
+        <h2 class="section-title">Let's Connect & Collaborate</h2>
+        <p class="section-subtitle">Open for roles in Data Science, Data Analysis, BI, ML Engineering, and Data Engineering.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Direct Contact Items -->
+        <div class="contact-info-list reveal-init">
+          <a href="mailto:azzatouati.ds@gmail.com" class="contact-item" id="copy-email-btn">
+            <div class="contact-icon-box"><i class="fa-regular fa-envelope"></i></div>
+            <div>
+              <div class="contact-label">Direct Email (Click to copy)</div>
+              <div class="contact-val">azzatouati.ds@gmail.com</div>
+            </div>
+          </a>
+
+          <a href="https://linkedin.com/in/azzatouati" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon-box"><i class="fa-brands fa-linkedin-in"></i></div>
+            <div>
+              <div class="contact-label">LinkedIn Profile</div>
+              <div class="contact-val">linkedin.com/in/azzatouati</div>
+            </div>
+          </a>
+
+          <a href="https://github.com/azzatouati" target="_blank" rel="noopener" class="contact-item">
+            <div class="contact-icon-box"><i class="fa-brands fa-github"></i></div>
+            <div>
+              <div class="contact-label">GitHub Repositories</div>
+              <div class="contact-val">github.com/azzatouati</div>
+            </div>
+          </a>
+
+          <div class="contact-item" style="cursor: default;">
+            <div class="contact-icon-box"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <div class="contact-label">Location</div>
+              <div class="contact-val">Tunisia</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <form class="contact-form reveal-init reveal-delay-2" id="contact-form">
+          <div class="form-group">
+            <label for="form-name" class="form-label">Your Name</label>
+            <input type="text" id="form-name" class="form-input" placeholder="e.g. Sarah Jenkins" required>
+          </div>
+          <div class="form-group">
+            <label for="form-email" class="form-label">Your Email</label>
+            <input type="email" id="form-email" class="form-input" placeholder="e.g. sarah@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="form-message" class="form-label">Message</label>
+            <textarea id="form-message" class="form-textarea" placeholder="Hello Azza, I saw your portfolio and would love to discuss a Data Science opportunity..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- Final Call to Action Statement -->
+      <div class="cta-banner reveal-init">
+        <h3 class="cta-quote text-gradient">"Let's turn data into meaningful decisions."</h3>
+        <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 1.5rem auto;">
+          Looking for a Data Scientist, Data Analyst, or ML practitioner ready to add strategic value to your team?
+        </p>
+        <a href="mailto:azzatouati.ds@gmail.com" class="btn btn-primary">
+          <i class="fa-solid fa-envelope"></i> Contact Azza Touati
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       9. FOOTER
+       ========================================================================== -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-text">
+        © 2026 <strong>Azza Touati</strong> — Data Science • AI • Business Analytics
+      </div>
+      <div class="footer-socials">
+        <a href="https://github.com/azzatouati" target="_blank" rel="noopener" class="footer-social-link" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/azzatouati" target="_blank" rel="noopener" class="footer-social-link" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="mailto:azzatouati.ds@gmail.com" class="footer-social-link" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+        <a href="#home" class="footer-social-link" aria-label="Back to Top"><i class="fa-solid fa-arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application JS Entry Point -->
+  <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
