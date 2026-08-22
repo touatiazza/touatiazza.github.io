@@ -448,14 +448,11 @@
     {
       id: 'parkinsons-ai',
       number: '01',
-      title: "Parkinson's AI — Deep Learning System for Disease Recognition",
+      title: "Parki AI — Deep Learning System for Disease Recognition",
       category: 'ai',
       categoryLabel: 'Deep Learning & Healthcare AI',
       shortDesc: "Developed deep learning system for Parkinson's disease recognition from hand-drawing patterns and clinical datasets.",
       technologies: ['Python', 'TensorFlow', 'Keras', 'Deep Learning', 'Data Augmentation', 'Flask'],
-      problem: "Early clinical detection of Parkinson's disease using non-invasive motor drawing patterns requires highly accurate deep learning architectures resistant to noise.",
-      solution: "Trained Convolutional Neural Network (CNN) models and deep feature extractors on clinical hand-drawing datasets. Applied data augmentation and built an interactive Flask dashboard.",
-      results: "Achieved 94.8% classification accuracy; latency < 120ms; delivered interactive web-based prediction tool.",
       githubUrl: 'https://github.com/touatiazza',
       simType: 'parkinsons',
       visualType: 'neural-canvas'
@@ -463,14 +460,11 @@
     {
       id: 'retail-etl',
       number: '02',
-      title: 'Retail Sales ETL Pipeline & Data Warehouse',
+      title: 'RetailFlow — Retail Sales ETL Pipeline & Data Warehouse',
       category: 'engineering',
       categoryLabel: 'Data Engineering & BI',
       shortDesc: "End-to-end data engineering pipeline extracting, transforming, and loading retail sales data into an SSMS Star Schema warehouse.",
       technologies: ['SQL Server', 'SSMS', 'SSIS', 'ETL', 'Data Warehousing'],
-      problem: "Enterprise transactional databases experienced query bottlenecks and schema inconsistencies, impeding executive reporting.",
-      solution: "Architected a Star Schema dimensional model (FactSales, DimStore, DimCustomer, DimProduct) in SSMS. Built SSIS ETL packages for automated extraction, cleansing, transformation, and warehouse staging.",
-      results: "Ingested 500,000+ retail records with zero loss; reduced query latency by 75%; automated daily ETL sync.",
       githubUrl: 'https://github.com/touatiazza',
       simType: 'etl',
       visualType: 'pipeline-flow'
@@ -493,7 +487,7 @@
     {
       id: 'job-market-ai',
       number: '04',
-      title: 'AI & Job Market Intelligence Analytics',
+      title: 'JobPulse AI —  Job Market Intelligence Analytics',
       category: 'science',
       categoryLabel: 'Machine Learning & Web Analytics',
       shortDesc: "Data science analysis examining how AI automation impacts labor market demands, skill clusters, and job exposure.",
