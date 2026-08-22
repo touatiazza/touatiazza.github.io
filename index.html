@@ -47,7 +47,6 @@
       <a href="#home" class="nav-logo" aria-label="Azza Touati Portfolio Home">
         <span class="nav-logo-mark"><i class="fa-solid fa-brain"></i></span>
         <div class="nav-logo-text">
-          <span class="nav-logo-title">AZZA TOUATI</span>
           <span class="nav-logo-sub">DATA // AI // BUSINESS</span>
         </div>
       </a>
@@ -324,11 +323,25 @@
             </div>
           </div>
         </div>
-        
-        <!-- Navigation Controls -->
-        <div class="carousel-nav">
-          <button id="carousel-prev" class="carousel-btn" aria-label="Previous Experience"><i class="fa-solid fa-arrow-left"></i></button>
-          <button id="carousel-next" class="carousel-btn" aria-label="Next Experience"><i class="fa-solid fa-arrow-right"></i></button>
+        <!-- Stacked Carousel Navigation Controls -->
+        <div class="carousel-nav-container">
+          <div class="carousel-nav-group">
+            <button id="carousel-prev" class="carousel-btn minimal-nav" aria-label="Previous Experience"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <div class="carousel-indicators" id="carousel-indicators">
+              <span class="indicator-dot active" data-index="0"></span>
+              <span class="indicator-line"></span>
+              <span class="indicator-dot" data-index="1"></span>
+              <span class="indicator-line"></span>
+              <span class="indicator-dot" data-index="2"></span>
+            </div>
+
+            <button id="carousel-next" class="carousel-btn minimal-nav" aria-label="Next Experience"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+          
+          <div class="carousel-counter">
+            <span id="carousel-current">01</span> / <span id="carousel-total">03</span>
+          </div>
         </div>
       </div>
     </div>
