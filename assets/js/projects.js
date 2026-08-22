@@ -6,7 +6,7 @@ export const projectsData = [
   {
     id: 'parkinsons-ai',
     number: '01',
-    title: "Parkinson's AI — Deep Learning System for Disease Recognition",
+    title: "Parki AI — Deep Learning System for Disease Recognition",
     category: 'ai',
     categoryLabel: 'Deep Learning & Healthcare AI',
     shortDesc: "Developed deep learning system for Parkinson's disease recognition from hand-drawing patterns and clinical datasets.",
