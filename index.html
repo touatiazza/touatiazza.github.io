@@ -286,44 +286,49 @@
         <h2 class="section-title">Professional Experience</h2>
       </div>
 
-      <div class="experience-swipe-container">
-        <!-- Experience 1 -->
-        <div class="experience-swipe-item reveal-init">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Feb 2025 – May 2025</div>
-            <h3 class="timeline-role">Research Internship — Parkinson's Disease Recognition Using Deep Learning</h3>
-            <div class="timeline-company">Higher Institute of Computer Science and Multimedia of Sfax (ISIMS)</div>
-            <p class="timeline-desc">
-              Developed multiple deep learning architectures for Parkinson's disease recognition using clinical and hand-drawing pattern datasets. Applied data preprocessing, feature augmentation, and built an interactive Flask web application for real-time diagnostic prediction.
-            </p>
+      <div class="experience-3d-wrapper">
+        <div class="experience-3d-carousel" id="experience-carousel">
+          <!-- Experience 1 -->
+          <div class="carousel-card active">
+            <div class="timeline-content glass-card">
+              <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Feb 2025 – May 2025</div>
+              <h3 class="timeline-role">Research Internship — Parkinson's Disease Recognition Using Deep Learning</h3>
+              <div class="timeline-company">Higher Institute of Computer Science and Multimedia of Sfax (ISIMS)</div>
+              <p class="timeline-desc">
+                Developed multiple deep learning architectures for Parkinson's disease recognition using clinical and hand-drawing pattern datasets. Applied data preprocessing, feature augmentation, and built an interactive Flask web application for real-time diagnostic prediction.
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 2 -->
+          <div class="carousel-card next">
+            <div class="timeline-content glass-card">
+              <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Aug 2024 – Sept 2024</div>
+              <h3 class="timeline-role">Summer Work — Enterprise Data Analysis & Business Intelligence</h3>
+              <div class="timeline-company">SAIPH</div>
+              <p class="timeline-desc">
+                Collected, cleaned, and transformed large business datasets. Designed interactive Power BI dashboards for operational data preparation and strategic business analysis.
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience 3 -->
+          <div class="carousel-card">
+            <div class="timeline-content glass-card">
+              <div class="timeline-date"><i class="fa-regular fa-calendar"></i> June 2024 – July 2024</div>
+              <h3 class="timeline-role">Information Systems Internship — ERP Database & SQL Operations</h3>
+              <div class="timeline-company">SAIPH</div>
+              <p class="timeline-desc">
+                Managed and updated core business data within Sage ERP databases. Executed complex SQL queries and database operations to support business reporting and enterprise analytics.
+              </p>
+            </div>
           </div>
         </div>
-
-        <!-- Experience 2 -->
-        <div class="experience-swipe-item reveal-init">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> Aug 2024 – Sept 2024</div>
-            <h3 class="timeline-role">Summer Work — Enterprise Data Analysis & Business Intelligence</h3>
-            <div class="timeline-company">SAIPH</div>
-            <p class="timeline-desc">
-              Collected, cleaned, and transformed large business datasets. Designed interactive Power BI dashboards for operational data preparation and strategic business analysis.
-            </p>
-          </div>
-        </div>
-
-        <!-- Experience 3 -->
-        <div class="experience-swipe-item reveal-init">
-          <div class="timeline-dot"></div>
-          <div class="timeline-content glass-card">
-            <div class="timeline-date"><i class="fa-regular fa-calendar"></i> June 2024 – July 2024</div>
-            <h3 class="timeline-role">Information Systems Internship — ERP Database & SQL Operations</h3>
-            <div class="timeline-company">SAIPH</div>
-            <p class="timeline-desc">
-              Managed and updated core business data within Sage ERP databases. Executed complex SQL queries and database operations to support business reporting and enterprise analytics.
-            </p>
-          </div>
+        
+        <!-- Navigation Controls -->
+        <div class="carousel-nav">
+          <button id="carousel-prev" class="carousel-btn" aria-label="Previous Experience"><i class="fa-solid fa-arrow-left"></i></button>
+          <button id="carousel-next" class="carousel-btn" aria-label="Next Experience"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
       </div>
     </div>
